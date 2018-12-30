@@ -1,5 +1,5 @@
 
-import KanbanItem from './modules/KanbanItem';
+import { KanbanItem } from './modules/KanbanItem';
 "use strict";
 
 //Model
