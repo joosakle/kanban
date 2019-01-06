@@ -4,7 +4,7 @@ import { Task } from './modules/Task';
 
 //Model
 let tasks = [];
-let apiUrl = "http://localhost/api/task/";
+let apiUrl = "/api/task/";
 
 //View
 let taskField = document.getElementById("taskfield");
