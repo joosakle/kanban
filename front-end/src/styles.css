@@ -25,7 +25,7 @@ body{
   
 }
 
-.kanban-item{
+.task{
     text-align: center;
     width: 80%;
     margin: 0 auto;
@@ -36,20 +36,20 @@ body{
     justify-content: center;
 }
 
-.kanban-item p{
+.task p{
     pointer-events:none;
 }
 
-.kanban-item button{
+.task button{
     display: none;
     float:right;
 }
 
-.kanban-item-selected{
+.task-selected{
     background-color: red;
 }
 
-.kanban-item-selected button{
+.task-selected button{
     display: inline;
 }
 

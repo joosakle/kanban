@@ -1,4 +1,4 @@
-export class KanbanItem {
+export class Task {
     constructor(id, content, status) {
         this.id = id;
         this.content = content;
