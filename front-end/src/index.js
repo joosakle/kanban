@@ -105,6 +105,7 @@ function updateView() {
 }
 
 function removeOldTasksFromView() {
+    console.log(todo.firstChild);
     while (todo.firstChild.nextSibling) {
         todo.removeChild(todo.firstChild.nextSibling);
     }

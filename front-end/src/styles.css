@@ -7,6 +7,7 @@ body{
 .container{
     width:85%;
     margin: 0 auto;
+    margin-top:1vh;
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -16,13 +17,21 @@ body{
     pointer-events:none;
 }
 
+.container__columnwrapper{
+    text-align: center;
+    border: 2px solid black;
+    width: 100%;
+}
+
+
 .container__column{
     text-align: center;
     border: 2px solid black;
     width: 100%;
     display:flex;
     flex-direction: column;
-  
+    height: 70vh;
+    overflow-y:scroll;
 }
 
 .task{
