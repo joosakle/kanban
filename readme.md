@@ -1,4 +1,6 @@
-This is a simple kanban board project to help keeping track of daily tasks. 
+What: A simple Kanban board for managing daily tasks. 
+How: PHP API with MySQL database on the back-end, simple webapp on the front-end.
+Why: To introduce myself to PHP, and to experiment with various front-end technologies.
 
 Getting started:
 
@@ -15,3 +17,4 @@ Front-end:
 3. Run "parcel build ./front-end/src/index.html" to create a /dist folder, and deploy its content to the server. 
 4. For development server, run "parcel ./front-end/src/index.html".
 
+The back-end code is modified from tutorial: https://www.codeofaninja.com/2017/02/create-simple-rest-api-in-php.html
