@@ -8,22 +8,20 @@ let apiUrl = "/api/task/";
 
 //View
 let taskField = document.getElementById("taskfield");
+let addTaskButton = document.getElementById("addtask");
 let selectedTask = null;
 let todo;
 let doing;
 let done;
 
 window.onload = function () {
-    getJson()
-        .then(function (data) {
-            console.log(data);
-        })
     initializeView();
     initializeTasks();
 }
 
 
 function initializeView() {
+
     todo = document.getElementById("todo", 1);
     todo.onclick = function (event) {
         moveTask(event);
@@ -39,7 +37,6 @@ function initializeView() {
         moveTask(event);
     }
 
-    let addTaskButton = document.getElementById("addtask");
     addTaskButton.onclick = function (event) {
         event.preventDefault();
 
@@ -54,6 +51,7 @@ function initializeView() {
         else {
             updateTaskContent(selectedTask.id, taskField.value)
             taskField.value = "";
+            addTaskButton.textContent = "Add Task";
             updateView();
         }
 
@@ -147,10 +145,12 @@ function createTask(id, text) {
                 selectedTask = event.target;
                 taskField.value = selectedTask.firstChild.textContent;
                 event.target.classList.add("task-selected");
+                addTaskButton.textContent = "Edit Task";
             }
             else {
                 selectedTask = null;
                 taskField.value = "";
+                addTaskButton.textContent = "Add Task";
             }
         }
     }
