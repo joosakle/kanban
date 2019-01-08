@@ -7,8 +7,8 @@ let tasks = [];
 let apiUrl = "/api/task/";
 
 //View
-let taskField = document.getElementById("taskfield");
-let addTaskButton = document.getElementById("addtask");
+let taskField;
+let addTaskButton;
 let selectedTask = null;
 let todo;
 let doing;
@@ -21,6 +21,8 @@ window.onload = function () {
 
 
 function initializeView() {
+    taskField = document.getElementById("taskfield");
+    addTaskButton = document.getElementById("addtask");
 
     todo = document.getElementById("todo", 1);
     todo.onclick = function (event) {
