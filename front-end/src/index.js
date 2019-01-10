@@ -4,6 +4,7 @@ import { Task } from './modules/Task';
 
 //Model
 let tasks = [];
+//let apiUrl = "http://localhost/api/task/"; //When using Parcel dev server
 let apiUrl = "/api/task/";
 
 //View
@@ -18,7 +19,6 @@ window.onload = function () {
     initializeView();
     initializeTasks();
 }
-
 
 function initializeView() {
     taskField = document.getElementById("taskfield");
@@ -53,7 +53,7 @@ function initializeView() {
         else {
             updateTaskContent(selectedTask.id, taskField.value)
             taskField.value = "";
-            addTaskButton.textContent = "Add Task";
+            switchAddTaskButtonStatus();
             updateView();
         }
 
@@ -105,7 +105,6 @@ function updateView() {
 }
 
 function removeOldTasksFromView() {
-    console.log(todo.firstChild);
     while (todo.firstChild.nextSibling) {
         todo.removeChild(todo.firstChild.nextSibling);
     }
@@ -147,12 +146,12 @@ function createTask(id, text) {
                 selectedTask = event.target;
                 taskField.value = selectedTask.firstChild.textContent;
                 event.target.classList.add("task-selected");
-                addTaskButton.textContent = "Edit Task";
+                switchAddTaskButtonStatus();
             }
             else {
                 selectedTask = null;
                 taskField.value = "";
-                addTaskButton.textContent = "Add Task";
+                switchAddTaskButtonStatus();
             }
         }
     }
@@ -164,6 +163,7 @@ function moveTask(event) {
     if (selectedTask !== null) {
         if (event.target.id === "todo" || event.target.id === "doing" || event.target.id === "done") {
             taskField.value = "";
+            switchAddTaskButtonStatus();
             updateTaskStatus(selectedTask.id, event.target.id);
             selectedTask = null;
             updateView();
@@ -227,4 +227,13 @@ function sendUpdatedTask(task) {
         .catch(function (error) {
             console.log('Request failure: ', error);
         });
+}
+
+function switchAddTaskButtonStatus() {
+    if (addTaskButton.textContent === "Add Task") {
+        addTaskButton.textContent = "Edit Task"
+    }
+    else {
+        addTaskButton.textContent = "Add Task"
+    }
 }
