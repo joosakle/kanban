@@ -54,7 +54,6 @@ body{
 
 .task button{
     display: none;
-    float:right;
 }
 
 .task-selected{
@@ -63,9 +62,11 @@ body{
 }
 
 .task-selected button{
-    display : inline;
+    display : block;
     margin-left : 25%;
     width : 50%;
+    height: auto;
+    margin-bottom:1vh;
 }
 
 @media only screen and (max-width:600px){
@@ -78,6 +79,10 @@ body{
         text-align: center;
         border: 2px solid black;
         width: 100%;
+    }
+    
+    .task-selected button{
+        height: 5vh;
     }
     
 
