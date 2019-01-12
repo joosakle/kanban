@@ -197,7 +197,7 @@ function updateTaskStatus(taskId, targetId) {
                     break;
             }
             sendUpdatedTask(tasks[i]);
-        } http://localhost/
+        }
     }
 }
 
