@@ -23,7 +23,6 @@ body{
     width: 100%;
 }
 
-
 .container__column{
     text-align: center;
     border: 2px solid black;
@@ -67,6 +66,4 @@ body{
         width:90%;
         flex-direction: column;
     }
-    
-
 }
