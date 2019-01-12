@@ -5,8 +5,8 @@ import { Task } from './modules/Task';
 //Model
 let tasks = [];
 let selectedTask = null;
-//let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
-let apiUrl = "http://localhost/api/task/";
+let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
+
 
 //View
 let taskField;
@@ -197,7 +197,7 @@ function updateTaskStatus(taskId, targetId) {
                     break;
             }
             sendUpdatedTask(tasks[i]);
-        }
+        } http://localhost/
     }
 }
 
