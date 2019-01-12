@@ -10,7 +10,6 @@ include_once '../objects/task.php';
  
 $database = new Database();
 $db = $database->getConnection();
- 
 $task = new task($db);
 $data = json_decode(file_get_contents("php://input"));
 $task->id = $data->id;

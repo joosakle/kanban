@@ -7,14 +7,12 @@ include_once '../objects/task.php';
 
 $database = new Database();
 $db = $database->getConnection();
- 
 $task = new Task($db);
  
 $stmt = $task->read();
 $num = $stmt->rowCount();
  
 if($num>0){
- 
     $tasks_array=array();
     $tasks_array["records"]=array();
  
