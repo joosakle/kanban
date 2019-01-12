@@ -7,7 +7,6 @@ let tasks = [];
 let selectedTask = null;
 let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
 
-
 //View
 let taskField;
 let addTaskButton;

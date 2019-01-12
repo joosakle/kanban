@@ -20,13 +20,12 @@ body{
 .container__columnwrapper{
     text-align: center;
     border: 2px solid black;
-    width: 100%;
+    width: 33.3%;
 }
 
 .container__column{
     text-align: center;
     border: 2px solid black;
-    width: 100%;
     display:flex;
     flex-direction: column;
     height: 70vh;
@@ -36,16 +35,21 @@ body{
 .task{
     text-align: center;
     width: 80%;
+    height:auto;
     margin: 0 auto;
     border: 1px solid black;
     margin-bottom: 1em;
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    word-wrap:break-word;
 }
 
+
 .task p{
-    pointer-events:none;
+    max-width:100%;
+    pointer-events: none;
+    height: auto;
 }
 
 .task button{
@@ -54,16 +58,31 @@ body{
 }
 
 .task-selected{
-    background-color: red;
+    border: 2px solid green;
+    justify-content: space-around;
 }
 
 .task-selected button{
-    display: inline;
+    display : inline;
+    margin-left : 25%;
+    width : 50%;
 }
 
 @media only screen and (max-width:600px){
     .container{
         width:90%;
         flex-direction: column;
+    }
+
+    .container__columnwrapper{
+        text-align: center;
+        border: 2px solid black;
+        width: 100%;
+    }
+    
+
+    #taskform{
+        position : sticky;
+        top: 1vh;
     }
 }
