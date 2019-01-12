@@ -4,13 +4,13 @@ import { Task } from './modules/Task';
 
 //Model
 let tasks = [];
-//let apiUrl = "http://localhost/api/task/"; //When using Parcel dev server
-let apiUrl = "/api/task/";
+let selectedTask = null;
+//let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
+let apiUrl = "http://localhost/api/task/";
 
 //View
 let taskField;
 let addTaskButton;
-let selectedTask = null;
 let todo;
 let doing;
 let done;
@@ -46,102 +46,85 @@ function initializeView() {
             getJson(apiUrl + "create.php", "POST", JSON.stringify({ content: taskField.value, status: 1 }))
                 .then(function (data) {
                     tasks.push(new Task(data.id, taskField.value, 1));
-                    taskField.value = "";
+                    clearTaskField();
                     updateView();
                 })
         }
         else {
             updateTaskContent(selectedTask.id, taskField.value)
-            taskField.value = "";
+            clearTaskField();
             switchAddTaskButtonStatus();
             updateView();
         }
-
     }
 }
 
 function initializeTasks() {
-
     getJson(apiUrl + "read.php", "GET", null)
         .then(function (data) {
-            let taskRecords = data.records;
-
-            taskRecords.forEach(function (taskRecord) {
-                let task = new Task(taskRecord.id, taskRecord.content, taskRecord.status);
-                tasks.push(task);
+            data.records.forEach(function (taskRecord) {
+                tasks.push(new Task(taskRecord.id, taskRecord.content, taskRecord.status));
             });
             updateView();
-        })
-}
-
-
-function getJson(url, method, body) {
-    return fetch(url, {
-        method: method,
-        body: body
-    })
-        .then(function (response) {
-            return response.json();
         })
 }
 
 function updateView() {
     removeOldTasksFromView();
     tasks.forEach(function (task) {
-        let visibleTask = createTask(task.id, task.content);
+        let taskDiv = createTaskDiv(task.id, task.content);
 
         switch (task.status) {
             case 1:
-                todo.appendChild(visibleTask);
+                todo.appendChild(taskDiv);
                 break;
             case 2:
-                doing.appendChild(visibleTask);
+                doing.appendChild(taskDiv);
                 break;
             case 3:
-                done.appendChild(visibleTask);
+                done.appendChild(taskDiv);
                 break;
         }
     });
 }
 
 function removeOldTasksFromView() {
-    while (todo.firstChild.nextSibling) {
-        todo.removeChild(todo.firstChild.nextSibling);
+    while (todo.firstChild) {
+        todo.removeChild(todo.firstChild);
     }
-    while (doing.firstChild.nextSibling) {
-        doing.removeChild(doing.firstChild.nextSibling);
+    while (doing.firstChild) {
+        doing.removeChild(doing.firstChild);
     }
-    while (done.firstChild.nextSibling) {
-        done.removeChild(done.firstChild.nextSibling);
+    while (done.firstChild) {
+        done.removeChild(done.firstChild);
     }
 }
 
-function createTask(id, text) {
-    let task = document.createElement('div');
-    task.className = "task";
-    task.id = id;
+function createTaskDiv(id, text) {
+    let taskDiv = document.createElement('div');
+    taskDiv.className = "task";
+    taskDiv.id = id;
 
     let content = document.createElement("p");
     content.textContent = text;
-    task.appendChild(content);
+    taskDiv.appendChild(content);
 
     let remove = document.createElement("button");
-    remove.textContent = "Delete";
-    task.appendChild(remove);
+    remove.textContent = "Remove";
     remove.onclick = function (event) {
         selectedTask = null;
-        taskField.value = "";
         removeTask(event.target.parentNode.id);
+        clearTaskField();
+        switchAddTaskButtonStatus();
         updateView();
     }
+    taskDiv.appendChild(remove);
 
-    task.onclick = function (event) {
+    taskDiv.onclick = function (event) {
         if (event.target.classList.contains("task")) {
-
             if (selectedTask != null) {
                 selectedTask.classList.remove("task-selected");
             }
-
             if (selectedTask !== event.target) {
                 selectedTask = event.target;
                 taskField.value = selectedTask.firstChild.textContent;
@@ -150,19 +133,18 @@ function createTask(id, text) {
             }
             else {
                 selectedTask = null;
-                taskField.value = "";
+                clearTaskField();
                 switchAddTaskButtonStatus();
             }
         }
     }
-
-    return task;
+    return taskDiv;
 }
 
 function moveTask(event) {
     if (selectedTask !== null) {
         if (event.target.id === "todo" || event.target.id === "doing" || event.target.id === "done") {
-            taskField.value = "";
+            clearTaskField();
             switchAddTaskButtonStatus();
             updateTaskStatus(selectedTask.id, event.target.id);
             selectedTask = null;
@@ -236,4 +218,18 @@ function switchAddTaskButtonStatus() {
     else {
         addTaskButton.textContent = "Add Task"
     }
+}
+
+function getJson(url, method, body) {
+    return fetch(url, {
+        method: method,
+        body: body
+    })
+        .then(function (response) {
+            return response.json();
+        })
+}
+
+function clearTaskField() {
+    taskField.value = "";
 }
