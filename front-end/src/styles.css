@@ -2,6 +2,11 @@ body{
     width:95%;
     text-align:center;
     margin: 0 auto;
+    background-color: rgb(91, 149, 183)
+}
+
+h1{
+    color: white;
 }
 
 .container{
@@ -11,6 +16,7 @@ body{
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
+    background-color: #ffffff;
 }
 
 .container h3{
@@ -19,13 +25,17 @@ body{
 
 .container__columnwrapper{
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid #474747;
     width: 33.3%;
+}
+
+.container__columnwrapper:nth-child(2){
+    border-left: none;
+    border-right: none;
 }
 
 .container__column{
     text-align: center;
-    border: 2px solid black;
     display:flex;
     flex-direction: column;
     height: 70vh;
@@ -37,7 +47,7 @@ body{
     width: 80%;
     height:auto;
     margin: 0 auto;
-    border: 1px solid black;
+    border: 1px solid #474747;
     margin-bottom: 1em;
     display:flex;
     flex-direction: column;
@@ -70,6 +80,7 @@ body{
 }
 
 @media only screen and (max-width:600px){
+    
     .container{
         width:90%;
         flex-direction: column;
@@ -77,7 +88,7 @@ body{
 
     .container__columnwrapper{
         text-align: center;
-        border: 2px solid black;
+        border: 2px solid #474747;
         width: 100%;
     }
     
@@ -85,7 +96,6 @@ body{
         height: 5vh;
     }
     
-
     #taskform{
         position : sticky;
         top: 1vh;

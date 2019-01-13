@@ -1,12 +1,13 @@
 
 import { Task } from './modules/Task';
+import { ColorChanger } from './modules/ColorChanger';
 "use strict";
 
 //Model
 let tasks = [];
 let selectedTask = null;
-//let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
-let apiUrl = "/api/task/";
+let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
+
 //View
 let taskField;
 let addTaskButton;
@@ -20,6 +21,9 @@ window.onload = function () {
 }
 
 function initializeView() {
+    let colorChanger = new ColorChanger([91, 149, 183], document.body);
+    colorChanger.setTimeColorToTarget();
+
     taskField = document.getElementById("taskfield");
     addTaskButton = document.getElementById("addtask");
 
