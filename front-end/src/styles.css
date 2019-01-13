@@ -19,7 +19,7 @@ h1{
     background-color: #ffffff;
 }
 
-.container h3{
+.container__columnwrapper h3{
     pointer-events:none;
 }
 
@@ -80,7 +80,7 @@ h1{
 }
 
 @media only screen and (max-width:600px){
-    
+
     .container{
         width:90%;
         flex-direction: column;
