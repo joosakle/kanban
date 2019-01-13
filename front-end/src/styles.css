@@ -90,4 +90,11 @@ body{
         position : sticky;
         top: 1vh;
     }
+
+    .container__column{
+        min-height: 10vh;
+        height: auto;
+        overflow-y:hidden;
+    }
+
 }
