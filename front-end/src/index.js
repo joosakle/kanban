@@ -46,6 +46,18 @@ function initializeView() {
     addTaskButton.onclick = function (event) {
         event.preventDefault();
 
+
+
+        window.onkeyup = function (e) {
+            var key = e.keyCode ? e.keyCode : e.which;
+
+            if (key == 38) {
+                playerSpriteX += 10;
+            } else if (key == 40) {
+                playerSpriteX -= 10;
+            }
+        }
+
         if (selectedTask === null) {
             getJson(apiUrl + "create.php", "POST", JSON.stringify({ content: taskField.value, status: 1 }))
                 .then(function (data) {
@@ -131,10 +143,12 @@ function createTaskDiv(id, text) {
                 selectedTask.classList.remove("task-selected");
             }
             if (selectedTask !== event.target) {
+                if (selectedTask === null) {
+                    switchAddTaskButtonStatus();
+                }
                 selectedTask = event.target;
                 taskField.value = selectedTask.firstChild.textContent;
                 event.target.classList.add("task-selected");
-                switchAddTaskButtonStatus();
             }
             else {
                 selectedTask = null;
