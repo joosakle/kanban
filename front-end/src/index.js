@@ -28,16 +28,17 @@ function initializeView() {
     addTaskButton = document.getElementById("addtask");
 
     todo = document.getElementById("todo", 1);
+    doing = document.getElementById("doing");
+    done = document.getElementById("done");
+
     todo.onclick = function (event) {
         moveTask(event);
     }
 
-    doing = document.getElementById("doing");
     doing.onclick = function (event) {
         moveTask(event);
     }
 
-    done = document.getElementById("done");
     done.onclick = function (event) {
         moveTask(event);
     }
@@ -92,14 +93,14 @@ function updateView() {
 }
 
 function removeOldTasksFromView() {
-    while (todo.firstChild) {
-        todo.removeChild(todo.firstChild);
+    while (todo.firstChild.nextSibling.nextSibling) {
+        todo.removeChild(todo.firstChild.nextSibling.nextSibling);
     }
-    while (doing.firstChild) {
-        doing.removeChild(doing.firstChild);
+    while (doing.firstChild.nextSibling.nextSibling) {
+        doing.removeChild(doing.firstChild.nextSibling.nextSibling);
     }
-    while (done.firstChild) {
-        done.removeChild(done.firstChild);
+    while (done.firstChild.nextSibling.nextSibling) {
+        done.removeChild(done.firstChild.nextSibling.nextSibling);
     }
 }
 

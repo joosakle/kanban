@@ -1,5 +1,5 @@
 body{
-    width:95%;
+    width:100%;
     text-align:center;
     margin: 0 auto;
     background-color: rgb(91, 149, 183)
@@ -9,37 +9,41 @@ h1{
     color: white;
 }
 
-.container{
-    width:85%;
+#mainwrapper{
+    width:95%;
     margin: 0 auto;
     margin-top:1vh;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    background-color: #ffffff;
+    height: 80vh;
+    overflow-y: scroll;
 }
 
-.container__columnwrapper h3{
+.container{
+    width : 100%;
+    display: table;
+    table-layout: fixed;
+    background-color: #ffffff;
+    height: 80vh;
+}
+
+.container h3{
     pointer-events:none;
 }
 
-.container__columnwrapper{
-    text-align: center;
-    border: 2px solid #474747;
-    width: 33.3%;
-}
 
-.container__columnwrapper:nth-child(2){
+.container:nth-child(2){
     border-left: none;
     border-right: none;
 }
 
 .container__column{
     text-align: center;
-    display:flex;
+    border: 2px solid #474747;
+    width: 33.3%;
+    display: table-cell;
+    text-align: center;
     flex-direction: column;
-    height: 70vh;
-    overflow-y:scroll;
+    min-height: 70vh;
+    word-wrap:break-word;
 }
 
 .task{
@@ -81,17 +85,18 @@ h1{
 
 @media only screen and (max-width:600px){
 
-    .container{
-        width:90%;
-        flex-direction: column;
+    #mainwrapper{
+        width: 100%;
+        height: 100vh;
     }
 
-    .container__columnwrapper{
-        text-align: center;
-        border: 2px solid #474747;
-        width: 100%;
+    .container{
+        display : flex;
+        width:100%;
+        flex-direction: column;
+        height: auto;
     }
-    
+
     .task-selected button{
         height: 5vh;
     }
@@ -102,6 +107,10 @@ h1{
     }
 
     .container__column{
+        display: block;
+        text-align: center;
+        border: 2px solid #474747;
+        width: 100%;
         min-height: 10vh;
         height: auto;
         overflow-y:hidden;
