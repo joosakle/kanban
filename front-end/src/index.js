@@ -27,7 +27,7 @@ function initializeView() {
     taskField = document.getElementById("taskfield");
     addTaskButton = document.getElementById("addtask");
 
-    todo = document.getElementById("todo", 1);
+    todo = document.getElementById("todo");
     doing = document.getElementById("doing");
     done = document.getElementById("done");
 
@@ -55,7 +55,8 @@ function initializeView() {
                 })
         }
         else {
-            updateTaskContent(selectedTask.id, taskField.value)
+            updateTaskContent(selectedTask.id, taskField.value);
+            selectedTask = null;
             clearTaskField();
             switchAddTaskButtonStatus();
             updateView();
