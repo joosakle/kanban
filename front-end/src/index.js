@@ -7,7 +7,6 @@ import { ColorChanger } from './modules/ColorChanger';
 let tasks = [];
 let selectedTask = null;
 let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
-apiUrl = "http://localhost/api/task/";
 
 //View
 let taskField;
