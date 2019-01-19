@@ -9,6 +9,13 @@ h1{
     color: white;
 }
 
+#refresh{
+    position : absolute;
+    right : 0;
+    top : 0;
+    font-size: 50%;
+}
+
 #mainwrapper{
     width:95%;
     margin: 0 auto;

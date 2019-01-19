@@ -7,13 +7,17 @@ import { ColorChanger } from './modules/ColorChanger';
 let tasks = [];
 let selectedTask = null;
 let apiUrl = "/api/task/"; //"http://localhost/api/task/"; When using Parcel dev server
+apiUrl = "http://localhost/api/task/";
 
 //View
 let taskField;
 let addTaskButton;
+let refreshButton;
+let autoRefreshEnabled = false;
 let todo;
 let doing;
 let done;
+let refreshInterval = 10000;
 
 window.onload = function () {
     initializeView();
@@ -25,7 +29,6 @@ function initializeView() {
     colorChanger.setTimeColorToTarget();
 
     taskField = document.getElementById("taskfield");
-    addTaskButton = document.getElementById("addtask");
 
     todo = document.getElementById("todo");
     doing = document.getElementById("doing");
@@ -34,30 +37,31 @@ function initializeView() {
     todo.onclick = function (event) {
         moveTask(event);
     }
-
     doing.onclick = function (event) {
         moveTask(event);
     }
-
     done.onclick = function (event) {
         moveTask(event);
     }
 
-    addTaskButton.onclick = function (event) {
-        event.preventDefault();
+    refreshButton = document.getElementById("refresh");
+    refreshButton.onclick = function () {
+        autoRefreshEnabled = !autoRefreshEnabled;
+        refreshButton.textContent = autoRefreshEnabled ? "Disable Refresh" : "Enable Refresh";
+    }
 
-
-
-        window.onkeyup = function (e) {
-            var key = e.keyCode ? e.keyCode : e.which;
-
-            if (key == 38) {
-                playerSpriteX += 10;
-            } else if (key == 40) {
-                playerSpriteX -= 10;
-            }
+    setInterval(function () {
+        if (autoRefreshEnabled) {
+            initializeTasks();
         }
 
+    }, refreshInterval);
+
+
+    addTaskButton = document.getElementById("addtask");
+
+    addTaskButton.onclick = function (event) {
+        event.preventDefault();
         if (selectedTask === null) {
             getJson(apiUrl + "create.php", "POST", JSON.stringify({ content: taskField.value, status: 1 }))
                 .then(function (data) {
@@ -68,8 +72,6 @@ function initializeView() {
         }
         else {
             updateTaskContent(selectedTask.id, taskField.value);
-            selectedTask = null;
-            clearTaskField();
             switchAddTaskButtonStatus();
             updateView();
         }
@@ -77,6 +79,7 @@ function initializeView() {
 }
 
 function initializeTasks() {
+    tasks = [];
     getJson(apiUrl + "read.php", "GET", null)
         .then(function (data) {
             data.records.forEach(function (taskRecord) {
@@ -87,6 +90,7 @@ function initializeTasks() {
 }
 
 function updateView() {
+    console.log("Update called");
     removeOldTasksFromView();
     tasks.forEach(function (task) {
         let taskDiv = createTaskDiv(task.id, task.content);
@@ -103,6 +107,16 @@ function updateView() {
                 break;
         }
     });
+    if (selectedTask) {
+        let newDiv = document.getElementById(selectedTask.id);
+        if (newDiv && (newDiv.classList.contains("task"))) {
+            newDiv.classList.add("task-selected");
+            selectedTask = newDiv;
+        }
+        else {
+            switchAddTaskButtonStatus();
+        }
+    }
 }
 
 function removeOldTasksFromView() {
@@ -129,9 +143,7 @@ function createTaskDiv(id, text) {
     let remove = document.createElement("button");
     remove.textContent = "Remove";
     remove.onclick = function (event) {
-        selectedTask = null;
         removeTask(event.target.parentNode.id);
-        clearTaskField();
         switchAddTaskButtonStatus();
         updateView();
     }
@@ -151,8 +163,6 @@ function createTaskDiv(id, text) {
                 event.target.classList.add("task-selected");
             }
             else {
-                selectedTask = null;
-                clearTaskField();
                 switchAddTaskButtonStatus();
             }
         }
@@ -163,10 +173,8 @@ function createTaskDiv(id, text) {
 function moveTask(event) {
     if (selectedTask !== null) {
         if (event.target.id === "todo" || event.target.id === "doing" || event.target.id === "done") {
-            clearTaskField();
-            switchAddTaskButtonStatus();
             updateTaskStatus(selectedTask.id, event.target.id);
-            selectedTask = null;
+            switchAddTaskButtonStatus();
             updateView();
         }
     }
@@ -231,6 +239,8 @@ function sendUpdatedTask(task) {
 }
 
 function switchAddTaskButtonStatus() {
+    selectedTask = null;
+    clearTaskField();
     if (addTaskButton.textContent === "Add Task") {
         addTaskButton.textContent = "Edit Task"
     }
