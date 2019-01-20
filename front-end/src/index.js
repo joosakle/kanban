@@ -18,12 +18,12 @@ let doing;
 let done;
 let refreshInterval = 10000;
 
-window.onload = function () {
+window.onload = () => {
     initializeView();
     initializeTasks();
 }
 
-function initializeView() {
+const initializeView = () => {
     let colorChanger = new ColorChanger([91, 149, 183], document.body);
     colorChanger.setTimeColorToTarget();
 
@@ -33,23 +33,18 @@ function initializeView() {
     doing = document.getElementById("doing");
     done = document.getElementById("done");
 
-    todo.onclick = function (event) {
-        moveTask(event);
-    }
-    doing.onclick = function (event) {
-        moveTask(event);
-    }
-    done.onclick = function (event) {
-        moveTask(event);
-    }
+    todo.onclick = (event) => moveTask(event);
+    doing.onclick = (event) => moveTask(event);
+    done.onclick = (event) => moveTask(event);
+
 
     refreshButton = document.getElementById("refresh");
-    refreshButton.onclick = function () {
+    refreshButton.onclick = () => {
         autoRefreshEnabled = !autoRefreshEnabled;
         refreshButton.textContent = autoRefreshEnabled ? "Disable Refresh" : "Enable Refresh";
     }
 
-    setInterval(function () {
+    setInterval(() => {
         if (autoRefreshEnabled) {
             initializeTasks();
         }
@@ -59,11 +54,11 @@ function initializeView() {
 
     addTaskButton = document.getElementById("addtask");
 
-    addTaskButton.onclick = function (event) {
+    addTaskButton.onclick = (event) => {
         event.preventDefault();
         if (selectedTask === null) {
             getJson(apiUrl + "create.php", "POST", JSON.stringify({ content: taskField.value, status: 1 }))
-                .then(function (data) {
+                .then((data) => {
                     tasks.push(new Task(data.id, taskField.value, 1));
                     clearTaskField();
                     updateView();
@@ -77,21 +72,20 @@ function initializeView() {
     }
 }
 
-function initializeTasks() {
+const initializeTasks = () => {
     tasks = [];
     getJson(apiUrl + "read.php", "GET", null)
-        .then(function (data) {
-            data.records.forEach(function (taskRecord) {
+        .then((data) => {
+            data.records.forEach(taskRecord => {
                 tasks.push(new Task(taskRecord.id, taskRecord.content, taskRecord.status));
             });
             updateView();
         })
 }
 
-function updateView() {
-    console.log("Update called");
+const updateView = () => {
     removeOldTasksFromView();
-    tasks.forEach(function (task) {
+    tasks.forEach((task) => {
         let taskDiv = createTaskDiv(task.id, task.content);
 
         switch (task.status) {
@@ -118,7 +112,7 @@ function updateView() {
     }
 }
 
-function removeOldTasksFromView() {
+const removeOldTasksFromView = () => {
     while (todo.firstChild.nextSibling.nextSibling) {
         todo.removeChild(todo.firstChild.nextSibling.nextSibling);
     }
@@ -130,7 +124,7 @@ function removeOldTasksFromView() {
     }
 }
 
-function createTaskDiv(id, text) {
+const createTaskDiv = (id, text) => {
     let taskDiv = document.createElement('div');
     taskDiv.className = "task";
     taskDiv.id = id;
@@ -141,14 +135,14 @@ function createTaskDiv(id, text) {
 
     let remove = document.createElement("button");
     remove.textContent = "Remove";
-    remove.onclick = function (event) {
+    remove.onclick = (event) => {
         removeTask(event.target.parentNode.id);
         switchAddTaskButtonStatus();
         updateView();
     }
     taskDiv.appendChild(remove);
 
-    taskDiv.onclick = function (event) {
+    taskDiv.onclick = (event) => {
         if (event.target.classList.contains("task")) {
             if (selectedTask != null) {
                 selectedTask.classList.remove("task-selected");
@@ -169,7 +163,7 @@ function createTaskDiv(id, text) {
     return taskDiv;
 }
 
-function moveTask(event) {
+const moveTask = (event) => {
     if (selectedTask !== null) {
         if (event.target.id === "todo" || event.target.id === "doing" || event.target.id === "done") {
             updateTaskStatus(selectedTask.id, event.target.id);
@@ -179,7 +173,7 @@ function moveTask(event) {
     }
 }
 
-function updateTaskContent(taskId, content) {
+const updateTaskContent = (taskId, content) => {
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].id + "" === taskId) {
             tasks[i].content = content;
@@ -189,14 +183,14 @@ function updateTaskContent(taskId, content) {
     }
 }
 
-function removeTask(taskId) {
+const removeTask = (taskId) => {
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].id + "" === taskId) {
             getJson(apiUrl + "delete.php", "POST", JSON.stringify({ id: tasks[i].id }))
-                .then(function (data) {
+                .then((data) => {
                     console.log('Request success: ', data);
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log('Request failure: ', error);
                 });
             tasks.splice(i, 1);
@@ -205,7 +199,7 @@ function removeTask(taskId) {
     }
 }
 
-function updateTaskStatus(taskId, targetId) {
+const updateTaskStatus = (taskId, targetId) => {
 
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].id + "" === taskId) {
@@ -227,17 +221,17 @@ function updateTaskStatus(taskId, targetId) {
     }
 }
 
-function sendUpdatedTask(task) {
+const sendUpdatedTask = (task) => {
     getJson(apiUrl + "update.php", "POST", JSON.stringify(task))
-        .then(function (data) {
+        .then((data) => {
             console.log('Request success: ', data);
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log('Request failure: ', error);
         });
 }
 
-function switchAddTaskButtonStatus() {
+const switchAddTaskButtonStatus = () => {
     selectedTask = null;
     clearTaskField();
     if (addTaskButton.textContent === "Add Task") {
@@ -248,16 +242,14 @@ function switchAddTaskButtonStatus() {
     }
 }
 
-function getJson(url, method, body) {
+const getJson = (url, method, body) => {
     return fetch(url, {
         method: method,
         body: body
     })
-        .then(function (response) {
+        .then((response) => {
             return response.json();
         })
 }
 
-function clearTaskField() {
-    taskField.value = "";
-}
+const clearTaskField = () => taskField.value = "";
