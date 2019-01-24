@@ -16,7 +16,7 @@ let autoRefreshEnabled = false;
 let todo;
 let doing;
 let done;
-let refreshInterval = 10000;
+let refreshInterval = 12000;
 
 window.onload = () => {
     initializeView();
