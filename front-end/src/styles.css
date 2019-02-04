@@ -53,6 +53,11 @@ h1{
     word-wrap:break-word;
 }
 
+.container__column h3{
+    padding-bottom: 1vh;
+    border-bottom: 1px solid #474747;
+}
+
 .task{
     text-align: center;
     width: 80%;
