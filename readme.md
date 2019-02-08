@@ -7,7 +7,13 @@ Getting started:
 Back-end:
 
 1. Install LAMP if not installed.
-2. Set up the kanban database, with table name task, and columns id(INT PRIMARY KEY), content(VARCHAR),status(INT).
+2. Set up the kanban database:
+CREATE TABLE `task` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(200) NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)
 3. Deploy /api folder, and configure database access at /config/database.php
 
 Front-end:
