@@ -7,7 +7,7 @@ Keeping things simple for this project with minimum dependencies - just pure PHP
 <b>Why:</b> 
 To familiarize myself with PHP, and to practice some pure Javascript for a change.
 
-<b>Further development</b> 
+<b>Further development:</b> 
 No further plans here, since my React and NodeJS based 'Homeboard' project will include a Kanban component among other things.
 
 <b>Getting started:</b>
