@@ -1,8 +1,16 @@
-What: A simple Kanban board for managing daily tasks. 
-How: PHP API with MySQL database on the back-end, simple webapp on the front-end.
-Why: To introduce myself to PHP, and to experiment with various front-end technologies.
+<b>What:</b> 
+A simple Kanban board for managing daily tasks, just for local use and without authentication.
 
-Getting started:
+<b>How:</b>  
+Keeping things simple for this project with minimum dependencies - just pure PHP REST api for the back-end, vanilla JS for the front-end. Builds using Parcel.
+
+<b>Why:</b> 
+To familiarize myself with PHP, and to practice some pure Javascript for a change.
+
+<b>Further development</b> 
+No further plans here, since my React and NodeJS based 'Homeboard' project will include a Kanban component among other things.
+
+<b>Getting started:</b>
 
 Back-end:
 
